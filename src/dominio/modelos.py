@@ -1,3 +1,19 @@
+class Cliente:
+    def __init__(self, nombre: str, email: str):
+        if not nombre:
+            raise ValueError("El nombre no puede estar vacío.")
+        if "@" not in email or "." not in email:
+            raise ValueError("Email inválido.")
+        self.nombre = nombre
+        self.email = email
+
+    def realizar_pedido(self, producto, cantidad: int, codigo_promocional=None):
+        """
+        Crea y devuelve un Pedido para este cliente.
+        """
+        from src.dominio.modelos import Pedido  # import local para evitar problemas si se modifica la estructura
+        return Pedido(producto, cantidad, codigo_promocional)
+
 class Producto:
     def __init__(self, nombre: str, precio_unitario: float):
         if precio_unitario < 0:
