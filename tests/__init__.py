@@ -1,0 +1,1 @@
+# Paquete de tests — archivo vacío para que 'tests' sea importable.
