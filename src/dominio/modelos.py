@@ -35,8 +35,11 @@ class Pedido:
         return self.producto.precio_unitario * self.cantidad
     
     def aplicar_descuento(self):
-        if self.codigo_promocional == "PROMO10":
-            return self.subtotal * 0.9
-        elif self.codigo_promocional == "DESCUENTO20":
-            return self.subtotal * 0.8
-        return self.subtotal
+
+        subtotal = self.subtotal
+        from src.utils.validaciones import get_descuento_porc
+        descuento_porc = get_descuento_porc(self.codigo_promocional) if self.codigo_promocional else 0.0
+        if descuento_porc > 1.0:
+            raise ValueError("El porcentaje de descuento no puede ser mayor que 100%.")
+        return subtotal * (1 - descuento_porc)
+    

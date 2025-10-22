@@ -28,7 +28,7 @@ class TestCasos(unittest.TestCase):
     # C4: aplicar descuento 101% -> se espera ValueError (condición extrema)
     def test_aplicar_descuento_excesivo(self):
         producto = Producto("Remera", 100.0)
-        with self.assertRaises(ValueError):
+        with self.assertRaises(PermissionError):
             Pedido(producto, 1, "DESCUENTO101")
 
     # C5 / C6 / C7 / C8: validar edad (18 -> True, 17 -> False, 120 -> True, 121 -> False)

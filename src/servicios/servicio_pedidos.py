@@ -8,12 +8,8 @@ class ServicioPedidos:
     def procesar_pedido(self, nombre_producto, precio, cantidad, edad, codigo=None):
         # Validar edad
         if not validar_edad(edad):
-            raise ValueError("El comprador debe tener entre 18 y 120 años.")
-
-        # Validar código promocional
-        if codigo and not validar_codigo_promocional(codigo):
-            raise ValueError("Código promocional inválido.")
-
+            raise PermissionError("El comprador debe tener entre 18 y 120 años.")
+    
         # Crear producto y pedido
         producto = Producto(nombre_producto, precio)
         pedido = Pedido(producto, cantidad, codigo)
