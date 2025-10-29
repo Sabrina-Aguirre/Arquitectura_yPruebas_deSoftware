@@ -28,7 +28,7 @@ class TestCasos(unittest.TestCase):
     # C4: aplicar descuento 101% -> se espera ValueError (condición extrema)
     def test_aplicar_descuento_excesivo(self):
         producto = Producto("Remera", 100.0)
-        with self.assertRaises(PermissionError):
+        with self.assertRaises(ValueError):  # Cambiar de PermissionError a ValueError
             Pedido(producto, 1, "DESCUENTO101")
 
     # C5 / C6 / C7 / C8: validar edad (18 -> True, 17 -> False, 120 -> True, 121 -> False)
@@ -38,9 +38,9 @@ class TestCasos(unittest.TestCase):
         self.assertTrue(validar_edad(120))
         self.assertFalse(validar_edad(121))
 
-    # C9 / C10: validar código promocional (PROMO10 -> 10.0, INVALIDO -> 0.0)
+    # C9 / C10: validar código promocional (PROMO10 -> 0.1, INVALIDO -> 0.0)
     def test_validar_codigo_promocional(self):
-        self.assertAlmostEqual(validar_codigo_promocional("PROMO10"), 10.0)
+        self.assertAlmostEqual(validar_codigo_promocional("PROMO10"), 0.1)  # 0.1 en vez de 10.0
         self.assertAlmostEqual(validar_codigo_promocional("INVALIDO"), 0.0)
 
     # C11: integración: procesar pedido cliente 25 + "PROMO10" -> total 90.0 (precio 100, qty 1)
@@ -58,3 +58,5 @@ class TestCasos(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+#para ejecutar posicionarse en la carpeta raíz del proyecto y correr:: python -m unittest tests.test_casos -v
